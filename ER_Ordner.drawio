@@ -1,0 +1,63 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="24.8.0">
+  <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
+    <mxGraphModel dx="836" dy="518" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-1" value="Ordner" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="210" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-3" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="XoMo-hGN-gINQgrEXcdc-14" target="XoMo-hGN-gINQgrEXcdc-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="260" as="sourcePoint" />
+            <mxPoint x="400" y="260" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="290" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-5" value="N" style="resizable=0;html=1;whiteSpace=wrap;align=right;verticalAlign=bottom;" connectable="0" vertex="1" parent="XoMo-hGN-gINQgrEXcdc-3">
+          <mxGeometry x="1" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-7" value="Dokument" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="680" y="210" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-8" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="XoMo-hGN-gINQgrEXcdc-1" target="XoMo-hGN-gINQgrEXcdc-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="310" as="sourcePoint" />
+            <mxPoint x="660" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-10" value="N" style="resizable=0;html=1;whiteSpace=wrap;align=right;verticalAlign=bottom;" connectable="0" vertex="1" parent="XoMo-hGN-gINQgrEXcdc-8">
+          <mxGeometry x="1" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-11" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="XoMo-hGN-gINQgrEXcdc-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="260" as="sourcePoint" />
+            <mxPoint x="400" y="230" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="450" y="340" />
+              <mxPoint x="290" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-12" value="1" style="resizable=0;html=1;whiteSpace=wrap;align=left;verticalAlign=bottom;" connectable="0" vertex="1" parent="XoMo-hGN-gINQgrEXcdc-11">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint y="20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-14" value="enthält" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="231" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-15" value="M" style="resizable=0;html=1;whiteSpace=wrap;align=right;verticalAlign=bottom;" connectable="0" vertex="1" parent="1">
+          <mxGeometry x="599.9999999999999" y="240" as="geometry">
+            <mxPoint x="-79" y="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XoMo-hGN-gINQgrEXcdc-17" value="enthält" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="540" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
