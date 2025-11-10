@@ -1,25 +1,22 @@
 package ts.dbvereinclient;
 
-import javafx.scene.control.*;
-
+import javafx.scene.control.Label;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class SportartController {
+public class MitgliedController {
     @FXML
     Label  lblStatusLeft;
-    
+
     //Membervariablen
     private Stage stage;
     @FXML
@@ -42,8 +39,6 @@ public class SportartController {
     private Color x4;
     @FXML
     private Label lblStatusRight;
-    @FXML
-    private TableView<Sportart> tblSportarten;
 
     //Getter und Setter
     public Stage getStage() {
@@ -52,7 +47,7 @@ public class SportartController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-    
+
     @FXML
     public void close()
     {
@@ -63,15 +58,15 @@ public class SportartController {
             loader.setLocation(App.class.getResource("main.fxml"));
             // Root der neuen Scene speichern
             Parent root = loader.load();
-            
+
             //aktuellen Controller von main.xml holen und stage übergeben
             MainController controller = loader.getController();
             controller.setStage(stage);
-            
+
             //Neue Szene erzeugen und Root-Element übergeben
             Scene scene = new Scene(root);
-            
-            //Die Szene der Stage austauschen und 
+
+            //Die Szene der Stage austauschen und
             stage.setScene(scene);
             stage.show();
 
@@ -82,53 +77,19 @@ public class SportartController {
         }
     }
 
-    @FXML
-    public void loadSportart(){
-        //Map Columns to Objekt-Properties
-        TableColumn col1 = tblSportarten.getColumns().get(0);
-        col1.setCellValueFactory(new PropertyValueFactory<>("sportId"));
-
-        TableColumn col2 = tblSportarten.getColumns().get(1);
-        col2.setCellValueFactory(new PropertyValueFactory<>("Sportart"));
-
-        TableColumn col3 = tblSportarten.getColumns().get(2);
-        col3.setCellValueFactory(new PropertyValueFactory<>("beitrag"));
-
-        //Löschen
-        tblSportarten.getItems().clear();
-        ArrayList<Sportart> sportarten = null;
-
-        try {
-            sportarten = SportartDao.getAll();
-        } catch (SQLException e) {
-            App.showErrorAlert("Error", "load Sportarten", e.getLocalizedMessage());
-        }
-
-        for (Sportart o:sportarten)
-        {
-            tblSportarten.getItems().add(o);
-        }
-        lblStatusLeft.setText("Sportarten: " + sportarten.size());
+    public void insertMitglied(){
 
     }
 
-    public void insertSportart(){
+    public void loadMitglied(){
 
     }
 
-    public void updateSportart(){
+    public void saveMitglied(){
 
     }
 
-    public void deleteSportart(){
-
-    }
-
-    public void newSportart(){
-
-    }
-
-    public void saveSportart(){
+    public void deleteMitglied(){
 
     }
 

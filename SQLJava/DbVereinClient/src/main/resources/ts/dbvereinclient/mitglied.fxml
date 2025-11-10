@@ -42,6 +42,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -49,16 +50,17 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="rootVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.dbvereinclient.SportartController">
+<VBox fx:id="rootVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.dbvereinclient.MitgliedController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="Sportart">
+        <Menu mnemonicParsing="false" text="Mitglied">
           <items>
-            <MenuItem fx:id="mnuNew" mnemonicParsing="false" text="Neu" />
-            <MenuItem fx:id="mnuShow" mnemonicParsing="false" text="Anzeigen" />
+            <MenuItem fx:id="mnuNew" mnemonicParsing="false" onAction="#insertMitglied" text="Neu" />
+            <MenuItem fx:id="mnuShow" mnemonicParsing="false" onAction="#loadMitglied" text="Anzeigen" />
+            <MenuItem fx:id="mnuSave" mnemonicParsing="false" onAction="#saveMitglied" text="Speichern" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="mnuSave" mnemonicParsing="false" text="Speichern" />
+            <MenuItem fx:id="mnuDelete" mnemonicParsing="false" onAction="#deleteMitglied" text="Löschen" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mnuClose" mnemonicParsing="false" onAction="#close" text="Schließen" />
           </items>
@@ -71,17 +73,18 @@
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
-                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Sportarten" textAlignment="CENTER" wrapText="false">
+                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Mitglieder" textAlignment="CENTER" wrapText="false">
                            <font>
                       <Font size="18.0" fx:id="x1" />
                            </font>
                            <textFill>
                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                            </textFill></Label>
-                        <TableView layoutX="15.0" layoutY="49.0" prefHeight="481.0" prefWidth="410.0">
+                        <TableView fx:id="tblMitglieder" layoutX="15.0" layoutY="49.0" onMouseClicked="#selectItem" onScroll="#selectItem" prefHeight="481.0" prefWidth="410.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="75.0" text="ID" />
+                            <TableColumn prefWidth="163.0" text="Nachname" />
+                            <TableColumn prefWidth="125.0" text="Vorname" />
                           </columns>
                         </TableView>
               </children>
@@ -91,6 +94,96 @@
         <AnchorPane>
           <children>
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label layoutX="14.0" layoutY="73.0" prefHeight="17.0" prefWidth="31.0" text="ID:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtMId" alignment="CENTER" editable="false" layoutX="130.0" layoutY="68.0" prefHeight="28.0" prefWidth="118.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="13.0" layoutY="111.0" prefHeight="23.0" prefWidth="67.0" text="Vorname:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtVorname" alignment="TOP_LEFT" layoutX="130.0" layoutY="107.0" prefHeight="30.0" prefWidth="178.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="15.0" layoutY="149.0" prefHeight="23.0" prefWidth="82.0" text="Nachname:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtNachname" layoutX="130.0" layoutY="145.0" prefHeight="30.0" prefWidth="178.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="15.0" layoutY="187.0" prefHeight="23.0" prefWidth="106.0" text="Geburtsdatum:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="15.0" layoutY="223.0" prefHeight="23.0" prefWidth="106.0" text="Geschlecht:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtGeburtsdatum" layoutX="130.0" layoutY="183.0" prefHeight="30.0" prefWidth="118.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtGeschlecht" layoutX="130.0" layoutY="219.0" prefHeight="25.0" prefWidth="118.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="15.0" layoutY="260.0" prefHeight="23.0" prefWidth="106.0" text="Strasse:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="15.0" layoutY="295.0" prefHeight="23.0" prefWidth="106.0" text="Ort:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="15.0" layoutY="331.0" prefHeight="23.0" prefWidth="106.0" text="Telefon:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="15.0" layoutY="368.0" prefHeight="23.0" prefWidth="106.0" text="Eintritt:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtStrasse" layoutX="130.0" layoutY="256.0" prefHeight="30.0" prefWidth="178.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtOrtId" layoutX="130.0" layoutY="291.0" prefHeight="30.0" prefWidth="178.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtTelefon" layoutX="130.0" layoutY="327.0" prefHeight="30.0" prefWidth="178.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtEintrittsdatum" layoutX="130.0" layoutY="364.0" prefHeight="30.0" prefWidth="178.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
           </children>
         </AnchorPane>
       </items>

@@ -42,6 +42,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -49,16 +50,17 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="rootVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.dbvereinclient.SportartController">
+<VBox fx:id="rootVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.dbvereinclient.SportartController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Sportart">
           <items>
-            <MenuItem fx:id="mnuNew" mnemonicParsing="false" text="Neu" />
-            <MenuItem fx:id="mnuShow" mnemonicParsing="false" text="Anzeigen" />
+            <MenuItem fx:id="mnuNew" mnemonicParsing="false" onAction="#newSportart" text="Neu" />
+            <MenuItem fx:id="mnuShow" mnemonicParsing="false" onAction="#loadSportart" text="Anzeigen" />
+            <MenuItem fx:id="mnuSave" mnemonicParsing="false" onAction="#saveSportart" text="Speichern" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="mnuSave" mnemonicParsing="false" text="Speichern" />
+            <MenuItem fx:id="mnuDelete" mnemonicParsing="false" onAction="#deleteSportart" text="Löschen" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mnuClose" mnemonicParsing="false" onAction="#close" text="Schließen" />
           </items>
@@ -78,10 +80,12 @@
                            <textFill>
                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                            </textFill></Label>
-                        <TableView layoutX="15.0" layoutY="49.0" prefHeight="481.0" prefWidth="410.0">
+                        <TableView fx:id="tblSportarten" layoutX="15.0" layoutY="49.0" onMouseClicked="#selectItem" onScroll="#selectItem" prefHeight="481.0" prefWidth="410.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="75.0" text="ID" />
+                            <TableColumn prefWidth="213.0" text="Sportart" />
+                            <TableColumn prefWidth="75.0" text="Beitrag" />
+                          
                           </columns>
                         </TableView>
               </children>
@@ -91,6 +95,36 @@
         <AnchorPane>
           <children>
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <Label layoutX="40.0" layoutY="75.0" prefHeight="17.0" prefWidth="31.0" text="ID:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtSportId" alignment="CENTER" editable="false" layoutX="102.0" layoutY="70.0" prefHeight="28.0" prefWidth="118.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="40.0" layoutY="110.0" prefHeight="23.0" prefWidth="67.0" text="Sportart: ">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtSportart" alignment="TOP_LEFT" layoutX="102.0" layoutY="108.0" prefHeight="25.0" prefWidth="283.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="40.0" layoutY="151.0" prefHeight="23.0" prefWidth="67.0" text="Beitrag:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtBeitrag" layoutX="102.0" layoutY="149.0" prefHeight="25.0" prefWidth="118.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
           </children>
         </AnchorPane>
       </items>
