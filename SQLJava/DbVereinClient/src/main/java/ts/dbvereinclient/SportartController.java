@@ -44,6 +44,16 @@ public class SportartController {
     private Label lblStatusRight;
     @FXML
     private TableView<Sportart> tblSportarten;
+    @FXML
+    private TextField txtSportId;
+    @FXML
+    private Button ausführen;
+    @FXML
+    private TextField txtBeitrag;
+    @FXML
+    private TextField txtSportart;
+    @FXML
+    private MenuItem mnuDelete;
 
     //Getter und Setter
     public Stage getStage() {
@@ -58,20 +68,15 @@ public class SportartController {
     {
         try
         {
-            // FXML-Loader erzeugen und Layout auswählen
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource("main.fxml"));
-            // Root der neuen Scene speichern
             Parent root = loader.load();
-            
-            //aktuellen Controller von main.xml holen und stage übergeben
+
             MainController controller = loader.getController();
             controller.setStage(stage);
-            
-            //Neue Szene erzeugen und Root-Element übergeben
+
             Scene scene = new Scene(root);
-            
-            //Die Szene der Stage austauschen und 
+
             stage.setScene(scene);
             stage.show();
 
@@ -87,19 +92,20 @@ public class SportartController {
         //Map Columns to Objekt-Properties
         TableColumn col1 = tblSportarten.getColumns().get(0);
         col1.setCellValueFactory(new PropertyValueFactory<>("sportId"));
-
         TableColumn col2 = tblSportarten.getColumns().get(1);
         col2.setCellValueFactory(new PropertyValueFactory<>("Sportart"));
-
         TableColumn col3 = tblSportarten.getColumns().get(2);
         col3.setCellValueFactory(new PropertyValueFactory<>("beitrag"));
 
-        //Löschen
         tblSportarten.getItems().clear();
         ArrayList<Sportart> sportarten = null;
 
         try {
-            sportarten = SportartDao.getAll();
+            if(!txtSportId.getText().isEmpty()){
+                sportarten = SportartDao.getById(Integer.parseInt(txtSportId.getText()));
+            }else {
+                sportarten = SportartDao.getAll();
+            }
         } catch (SQLException e) {
             App.showErrorAlert("Error", "load Sportarten", e.getLocalizedMessage());
         }
@@ -113,26 +119,42 @@ public class SportartController {
     }
 
     public void insertSportart(){
+        Sportart sportart = new Sportart(-1, txtSportart.getText(), Float.parseFloat(txtBeitrag.getText()));
 
+        try {
+            SportartDao.insert(sportart);
+        } catch (Exception e) {
+            App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
+        }
+        loadSportart();
     }
 
     public void updateSportart(){
+        Sportart sportart = new Sportart(Long.parseLong(txtSportId.getText()), txtSportart.getText(), Float.parseFloat(txtBeitrag.getText()));
 
+        try {
+            SportartDao.update(sportart);
+        } catch (Exception e) {
+            App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
+        }
+        loadSportart();
     }
 
+    @FXML
     public void deleteSportart(){
+        Sportart sportart = new Sportart(Long.parseLong(txtSportId.getText()), txtSportart.getText(), Float.parseFloat(txtBeitrag.getText()));
 
+        try {
+            SportartDao.delete(sportart);
+        } catch (Exception e) {
+            App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
+        }
     }
 
-    public void newSportart(){
-
-    }
-
-    public void saveSportart(){
-
-    }
-
+    @FXML
     public void selectItem(){
-
+        txtSportId.setText(String.valueOf(tblSportarten.getSelectionModel().selectedItemProperty().getValue().getSportId()));
+        txtSportart.setText(String.valueOf(tblSportarten.getSelectionModel().selectedItemProperty().getValue().getSportart()));
+        txtBeitrag.setText(String.valueOf(tblSportarten.getSelectionModel().selectedItemProperty().getValue().getBeitrag()));
     }
 }

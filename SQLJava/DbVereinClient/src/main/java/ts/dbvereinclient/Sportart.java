@@ -36,6 +36,6 @@ public class Sportart {
     }
 
     public Sportart clone(){
-        return this;
+        return new Sportart(this.sportId, this.sportart, this.beitrag);
     }
 }

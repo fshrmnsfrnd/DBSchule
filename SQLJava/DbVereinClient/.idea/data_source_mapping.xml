@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourcePerFileMappings">
+    <file url="mock:///SportartDao.java" value="8effca42-f3bb-4f3c-b251-eb59d543f63f" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/8effca42-f3bb-4f3c-b251-eb59d543f63f/console.sql" value="8effca42-f3bb-4f3c-b251-eb59d543f63f" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/8effca42-f3bb-4f3c-b251-eb59d543f63f/console_1.sql" value="8effca42-f3bb-4f3c-b251-eb59d543f63f" />
   </component>
 </project>

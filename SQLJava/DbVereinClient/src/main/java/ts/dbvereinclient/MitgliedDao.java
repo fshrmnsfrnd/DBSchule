@@ -1,12 +1,6 @@
 package ts.dbvereinclient;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-public class SportartDao {
+public class MitgliedDao {
     public static ArrayList<Sportart> getAll() throws SQLException {
         Connection con = DbVerein.getConnection();
         ArrayList<Sportart> results = new ArrayList<>();
@@ -51,10 +45,10 @@ public class SportartDao {
         try {
             Statement stmt = con.createStatement();
             stmt.execute("INSERT INTO Sportart(Sportart, Beitrag) " +
-                                    "VALUES('" +
-                                            sportart.getSportart() + "','" +
-                                            sportart.getBeitrag() +
-                                "');");
+                    "VALUES('" +
+                    sportart.getSportart() + "','" +
+                    sportart.getBeitrag() +
+                    "');");
         } catch (SQLException e) {
             App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
         }
@@ -66,9 +60,9 @@ public class SportartDao {
         try {
             Statement stmt = con.createStatement();
             stmt.execute("UPDATE Sportart " +
-                                "SET Sportart='" + sportart.getSportart() + "', " +
-                                "Beitrag='"+sportart.getBeitrag() +
-                            "' WHERE Sport_ID='"+sportart.getSportId() + "';");
+                    "SET Sportart='" + sportart.getSportart() + "', " +
+                    "Beitrag='"+sportart.getBeitrag() +
+                    "' WHERE Sport_ID='"+sportart.getSportId() + "';");
         } catch (SQLException e) {
             System.out.println(e.getStackTrace());
             App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());

@@ -26,7 +26,7 @@ public class DbVerein {
 
         try{
             Statement stmt = con.createStatement();
-            stmt.execute("SELECT Sport_Id, Sportart, Beitrag FROM sportart;");
+            stmt.execute("SELECT Sport_Id, Sportart, Beitrag FROM Sportart;");
         } catch (SQLException e) {
             App.showErrorAlert("Error", "connectToDB", e.getMessage());
             System.out.println(e.getMessage());

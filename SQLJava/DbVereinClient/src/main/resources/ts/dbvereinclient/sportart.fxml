@@ -50,15 +50,15 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="rootVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.dbvereinclient.SportartController">
+<VBox fx:id="rootVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/24" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.dbvereinclient.SportartController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Sportart">
           <items>
-            <MenuItem fx:id="mnuNew" mnemonicParsing="false" onAction="#newSportart" text="Neu" />
+            <MenuItem fx:id="mnuNew" mnemonicParsing="false" onAction="#updateSportart" text="Update" />
             <MenuItem fx:id="mnuShow" mnemonicParsing="false" onAction="#loadSportart" text="Anzeigen" />
-            <MenuItem fx:id="mnuSave" mnemonicParsing="false" onAction="#saveSportart" text="Speichern" />
+            <MenuItem fx:id="mnuSave" mnemonicParsing="false" onAction="#insertSportart" text="Insert" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mnuDelete" mnemonicParsing="false" onAction="#deleteSportart" text="Löschen" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -100,7 +100,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtSportId" alignment="CENTER" editable="false" layoutX="102.0" layoutY="70.0" prefHeight="28.0" prefWidth="118.0">
+                  <TextField fx:id="txtSportId" alignment="CENTER" layoutX="102.0" layoutY="70.0" prefHeight="28.0" prefWidth="118.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
