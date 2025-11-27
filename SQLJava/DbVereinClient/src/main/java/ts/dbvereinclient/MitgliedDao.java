@@ -1,85 +1,124 @@
 package ts.dbvereinclient;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 public class MitgliedDao {
-    public static ArrayList<Sportart> getAll() throws SQLException {
+    public static ArrayList<Mitglied> getAll() throws SQLException {
         Connection con = DbVerein.getConnection();
-        ArrayList<Sportart> results = new ArrayList<>();
+        ArrayList<Mitglied> results = new ArrayList<>();
 
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT Sport_Id, Sportart, Beitrag FROM sportart;");
+        ResultSet rs = stmt.executeQuery("SELECT M_Id, Vorname, Nachname, Geburtsdatum, Geschlecht, Strasse, Tel, Eintrittsdatum, PLZ, Ort, Ort_Id FROM mitglied, ort WHERE mitglied.Ort_Id = ort.Ort_Id ;");
 
         //ORM: object-relational-mapping
         while (rs.next())
         {
-            long id = rs.getInt("sport_id");
-            String sportart = rs.getString("Sportart");
-            float beitrag = rs.getFloat("beitrag");
-            //Sport-Objekt erzeugen
-            results.add(new Sportart(id,sportart,beitrag));
+            Ort ort = new Ort(rs.getLong("Ort_Id"), rs.getString("PLZ"), rs.getString("Ort"));
+            //Mitglied-Objekt erzeugen
+            results.add(new Mitglied(
+                    rs.getLong("M_Id"),
+                    rs.getString("Vorname"),
+                    rs.getString("Nachname"),
+                    rs.getDate("Geburtsdatum"),
+                    rs.getString("Geschlecht").charAt(0),
+                    rs.getString("Strasse"),
+                    ort,
+                    rs.getString("Tel"),
+                    rs.getDate("Eintrittsdatum")
+                    ));
         }
         return results;
     }
 
-    public static ArrayList<Sportart> getById(long idFilter) throws SQLException{
+    public static ArrayList<Mitglied> getById(long idFilter) throws SQLException{
         Connection con = DbVerein.getConnection();
-        ArrayList<Sportart> results = new ArrayList<>();
+        ArrayList<Mitglied> results = new ArrayList<>();
 
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT Sport_Id, Sportart, Beitrag FROM sportart WHERE Sport_ID=" + idFilter +";");
+        ResultSet rs = stmt.executeQuery("SELECT M_Id, Vorname, Nachname, Geburtsdatum, Geschlecht, Strasse, Tel, Eintrittsdatum, PLZ, Ort, Ort_Id FROM mitglied, ort WHERE M_Id=" + idFilter +";");
 
         //ORM: object-relational-mapping
         while (rs.next())
         {
-            long id = rs.getInt("sport_id");
-            String sportart = rs.getString("Sportart");
-            float beitrag = rs.getFloat("beitrag");
-            //Sport-Objekt erzeugen
-            results.add(new Sportart(id,sportart,beitrag));
+            Ort ort = new Ort(rs.getLong("Ort_Id"), rs.getString("PLZ"), rs.getString("Ort"));
+            //Mitglied-Objekt erzeugen
+            results.add(new Mitglied(
+                    rs.getLong("M_Id"),
+                    rs.getString("Vorname"),
+                    rs.getString("Nachname"),
+                    rs.getDate("Geburtsdatum"),
+                    rs.getString("Geschlecht").charAt(0),
+                    rs.getString("Strasse"),
+                    ort,
+                    rs.getString("Tel"),
+                    rs.getDate("Eintrittsdatum")
+            ));
         }
         return results;
     }
 
-    public static void insert(Sportart sportart){
+    public static void insert(Mitglied mitglied){
         Connection con = DbVerein.getConnection();
 
         try {
+            if(OrtDao.getByOrtPLZ(mitglied.getOrt().getOrt(), mitglied.getOrt().getPlz()) == null){
+                OrtDao.insert(mitglied.getOrt());
+                mitglied.ort = OrtDao.getByOrtPLZ(mitglied.getOrt().getOrt(), mitglied.getOrt().getPlz());
+            }
+            
             Statement stmt = con.createStatement();
-            stmt.execute("INSERT INTO Sportart(Sportart, Beitrag) " +
+            stmt.execute("INSERT INTO Mitglied(Vorname, Nachname, Geburtsdatum, Geschlecht, Strasse, Tel, Eintrittsdatum, Ort_Id) " +
                     "VALUES('" +
-                    sportart.getSportart() + "','" +
-                    sportart.getBeitrag() +
+                    mitglied.getVorname() + "','" +
+                    mitglied.getNachname() + "','" +
+                    mitglied.getGeburtsdatum() + "','" +
+                    mitglied.getGeschlecht() + "','" +
+                    mitglied.getStrasse() + "','" +
+                    mitglied.getTelefonnummer() + "','" +
+                    mitglied.getEintrittsdatum() + "','" +
+                    mitglied.getOrt().getOrt_id() +
                     "');");
         } catch (SQLException e) {
-            App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
+            App.showErrorAlert("Error", "insert Mitglied", e.getLocalizedMessage());
         }
     }
 
-    public static void update(Sportart sportart){
+    public static void update(Mitglied mitglied){
         Connection con = DbVerein.getConnection();
 
         try {
             Statement stmt = con.createStatement();
-            stmt.execute("UPDATE Sportart " +
-                    "SET Sportart='" + sportart.getSportart() + "', " +
-                    "Beitrag='"+sportart.getBeitrag() +
-                    "' WHERE Sport_ID='"+sportart.getSportId() + "';");
+
+            stmt.execute("UPDATE mitglied " +
+                    "SET Vorname='"+ mitglied.getVorname() + "', " +
+                    "Nachname='"+ mitglied.getNachname() + "', " +
+                    "Geburtsdatum='"+ mitglied.getGeburtsdatum() + "', " +
+                    "Geschlecht='"+ mitglied.getGeschlecht() + "', " +
+                    "Strasse='"+ mitglied.getStrasse() + "', " +
+                    "Tel='"+ mitglied.getTelefonnummer() + "', " +
+                    "Eintrittsdatum='"+ mitglied.getEintrittsdatum() + "' " +
+                    "Ort_Id='" + mitglied.getOrt().getOrt_id() + "' " +
+                    "' WHERE M_Id='"+mitglied.getId() + "';");
         } catch (SQLException e) {
             System.out.println(e.getStackTrace());
-            App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
+            App.showErrorAlert("Error", "insert Mitglied", e.getLocalizedMessage());
         }
     }
 
-    public static void delete(Sportart sportart){
+    public static void delete(Mitglied mitglied){
         Connection con = DbVerein.getConnection();
 
         try {
             Statement stmt = con.createStatement();
-            stmt.execute("DELETE FROM Sportart " +
-                    "WHERE Sport_ID='"+sportart.getSportId() + "';");
-            System.out.println(sportart.getSportId());
+            stmt.execute("DELETE FROM mitglied " +
+                    "WHERE M_Id='"+ mitglied.getId() + "';");
         } catch (SQLException e) {
             System.out.println(e.getStackTrace());
-            App.showErrorAlert("Error", "delete Sportarten", e.getLocalizedMessage());
+            App.showErrorAlert("Error", "delete Mitglied", e.getLocalizedMessage());
         }
     }
 }

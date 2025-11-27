@@ -82,7 +82,6 @@ public class SportartDao {
             Statement stmt = con.createStatement();
             stmt.execute("DELETE FROM Sportart " +
                     "WHERE Sport_ID='"+sportart.getSportId() + "';");
-            System.out.println(sportart.getSportId());
         } catch (SQLException e) {
             System.out.println(e.getStackTrace());
             App.showErrorAlert("Error", "delete Sportarten", e.getLocalizedMessage());

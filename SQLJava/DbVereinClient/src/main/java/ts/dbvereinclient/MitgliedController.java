@@ -1,6 +1,7 @@
 package ts.dbvereinclient;
 
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,9 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -44,6 +42,28 @@ public class MitgliedController {
     private Color x4;
     @FXML
     private Label lblStatusRight;
+    @FXML
+    private TextField txtEintrittsdatum;
+    @FXML
+    private TextField txtGeschlecht;
+    @FXML
+    private TextField txtTelefon;
+    @FXML
+    private TableView tblMitglieder;
+    @FXML
+    private TextField txtOrtId;
+    @FXML
+    private TextField txtStrasse;
+    @FXML
+    private TextField txtVorname;
+    @FXML
+    private TextField txtGeburtsdatum;
+    @FXML
+    private MenuItem mnuDelete;
+    @FXML
+    private TextField txtNachname;
+    @FXML
+    private TextField txtMId;
 
     //Getter und Setter
     public Stage getStage() {
@@ -82,71 +102,39 @@ public class MitgliedController {
         }
     }
 
-    //Getter und Setter
-    public Stage getStage() {
-        return stage;
-    }
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    @FXML
-    public void close()
-    {
-        try
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("main.fxml"));
-            Parent root = loader.load();
-
-            MainController controller = loader.getController();
-            controller.setStage(stage);
-
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-            stage.show();
-
-        }
-        catch (IOException e)
-        {
-            System.out.println(e.getLocalizedMessage());
-        }
-    }
-
     @FXML
     public void loadSportart(){
         //Map Columns to Objekt-Properties
-        TableColumn col1 = tblSportarten.getColumns().get(0);
-        col1.setCellValueFactory(new PropertyValueFactory<>("sportId"));
-        TableColumn col2 = tblSportarten.getColumns().get(1);
-        col2.setCellValueFactory(new PropertyValueFactory<>("Sportart"));
-        TableColumn col3 = tblSportarten.getColumns().get(2);
-        col3.setCellValueFactory(new PropertyValueFactory<>("beitrag"));
+        TableColumn col1 = (TableColumn) tblMitglieder.getColumns().get(0);
+        col1.setCellValueFactory(new PropertyValueFactory<>("mitgliedId"));
+        TableColumn col2 = (TableColumn) tblMitglieder.getColumns().get(1);
+        col2.setCellValueFactory(new PropertyValueFactory<>("Vorname"));
+        TableColumn col3 = (TableColumn) tblMitglieder.getColumns().get(2);
+        col3.setCellValueFactory(new PropertyValueFactory<>("Nachname"));
 
-        tblSportarten.getItems().clear();
-        ArrayList<Sportart> sportarten = null;
+        tblMitglieder.getItems().clear();
+        ArrayList<Mitglied> mitglieder = null;
 
         try {
             if(!txtSportId.getText().isEmpty()){
-                sportarten = SportartDao.getById(Integer.parseInt(txtSportId.getText()));
+                mitglieder = SportartDao.getById(Integer.parseInt(txtSportId.getText()));
             }else {
-                sportarten = SportartDao.getAll();
+                mitglieder = MitgliedDao.getAll();
             }
         } catch (SQLException e) {
             App.showErrorAlert("Error", "load Sportarten", e.getLocalizedMessage());
         }
 
-        for (Sportart o:sportarten)
+        for (Mitglied o: mitglieder)
         {
-            tblSportarten.getItems().add(o);
+            tblMitglieder.getItems().add(o);
         }
-        lblStatusLeft.setText("Sportarten: " + sportarten.size());
+        lblStatusLeft.setText("Sportarten: " + mitglieder.size());
 
     }
 
     public void insertSportart(){
-        Sportart sportart = new Sportart(-1, txtSportart.getText(), Float.parseFloat(txtBeitrag.getText()));
+        Sportart sportart = new Sportart(-1, txtMitglied.getText(), Float.parseFloat(txtBeitrag.getText()));
 
         try {
             SportartDao.insert(sportart);
@@ -157,7 +145,7 @@ public class MitgliedController {
     }
 
     public void updateSportart(){
-        Sportart sportart = new Sportart(Long.parseLong(txtSportId.getText()), txtSportart.getText(), Float.parseFloat(txtBeitrag.getText()));
+        Sportart sportart = new Sportart(Long.parseLong(txtMitgliedId.getText()), txtMitglied.getText(), Float.parseFloat(txtBeitrag.getText()));
 
         try {
             SportartDao.update(sportart);
@@ -183,5 +171,21 @@ public class MitgliedController {
         txtSportId.setText(String.valueOf(tblSportarten.getSelectionModel().selectedItemProperty().getValue().getSportId()));
         txtSportart.setText(String.valueOf(tblSportarten.getSelectionModel().selectedItemProperty().getValue().getSportart()));
         txtBeitrag.setText(String.valueOf(tblSportarten.getSelectionModel().selectedItemProperty().getValue().getBeitrag()));
+    }
+
+    @FXML
+    public void saveMitglied(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void loadMitglied(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void deleteMitglied(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void insertMitglied(ActionEvent actionEvent) {
     }
 }
