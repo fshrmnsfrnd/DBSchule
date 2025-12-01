@@ -12,12 +12,16 @@ public class MitgliedDao {
         ArrayList<Mitglied> results = new ArrayList<>();
 
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT M_Id, Vorname, Nachname, Geburtsdatum, Geschlecht, Strasse, Tel, Eintrittsdatum, PLZ, Ort, Ort_Id FROM mitglied, ort WHERE mitglied.Ort_Id = ort.Ort_Id ;");
+        ResultSet rs = stmt.executeQuery("SELECT M_Id, Vorname, Nachname, Geburtsdatum, Geschlecht, Strasse, Tel, Eintrittsdatum, PLZ, Ort, mitglied.Ort_Id FROM mitglied, ort WHERE mitglied.Ort_Id = ort.Ort_Id ;");
 
         //ORM: object-relational-mapping
         while (rs.next())
         {
-            Ort ort = new Ort(rs.getLong("Ort_Id"), rs.getString("PLZ"), rs.getString("Ort"));
+            Ort ort = new Ort(
+                    rs.getLong("mitglied.Ort_Id"),
+                    rs.getString("PLZ"),
+                    rs.getString("Ort")
+            );
             //Mitglied-Objekt erzeugen
             results.add(new Mitglied(
                     rs.getLong("M_Id"),

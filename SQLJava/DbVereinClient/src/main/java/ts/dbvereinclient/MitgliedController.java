@@ -1,10 +1,14 @@
 package ts.dbvereinclient;
 
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +53,7 @@ public class MitgliedController {
     @FXML
     private TextField txtTelefon;
     @FXML
-    private TableView tblMitglieder;
+    private TableView<Mitglied> tblMitglieder;
     @FXML
     private TextField txtOrtId;
     @FXML
@@ -64,6 +68,10 @@ public class MitgliedController {
     private TextField txtNachname;
     @FXML
     private TextField txtMId;
+    @FXML
+    private TextField txtOrt;
+    @FXML
+    private TextField txtPlz;
 
     //Getter und Setter
     public Stage getStage() {
@@ -74,8 +82,7 @@ public class MitgliedController {
     }
 
     @FXML
-    public void close()
-    {
+    public void close(){
         try
         {
             // FXML-Loader erzeugen und Layout auswählen
@@ -103,10 +110,10 @@ public class MitgliedController {
     }
 
     @FXML
-    public void loadSportart(){
+    public void loadMitglied(){
         //Map Columns to Objekt-Properties
         TableColumn col1 = (TableColumn) tblMitglieder.getColumns().get(0);
-        col1.setCellValueFactory(new PropertyValueFactory<>("mitgliedId"));
+        col1.setCellValueFactory(new PropertyValueFactory<>("id"));
         TableColumn col2 = (TableColumn) tblMitglieder.getColumns().get(1);
         col2.setCellValueFactory(new PropertyValueFactory<>("Vorname"));
         TableColumn col3 = (TableColumn) tblMitglieder.getColumns().get(2);
@@ -116,76 +123,137 @@ public class MitgliedController {
         ArrayList<Mitglied> mitglieder = null;
 
         try {
-            if(!txtSportId.getText().isEmpty()){
-                mitglieder = SportartDao.getById(Integer.parseInt(txtSportId.getText()));
+            if(!txtMId.getText().isEmpty()){
+                mitglieder = MitgliedDao.getById(Integer.parseInt(txtMId.getText()));
+                System.out.println("get mitglied by id");
+            }else {
+                System.out.println("get all mitglier");
+                mitglieder = MitgliedDao.getAll();
+            }
+        } catch (SQLException e) {
+            App.showErrorAlert("Error", "load Mitglieder", e.getLocalizedMessage());
+        }
+
+        for (Mitglied o: mitglieder){
+            tblMitglieder.getItems().add(o);
+        }
+        lblStatusLeft.setText("Mitglieder: " + mitglieder.size());
+
+    }
+
+    public void insertMitglied(){
+        Ort ort = new Ort(
+        -1,
+                txtPlz.getText(),
+                txtOrt.getText()
+        );
+
+        Mitglied mitglied = new Mitglied(
+                -1,
+                txtVorname.getText(),
+                txtNachname.getText(),
+                Date.from(Instant.parse(txtGeburtsdatum.getText())),
+                txtGeschlecht.getText().charAt(0),
+                txtStrasse.getText(),
+                ort,
+                txtTelefon.getText(),
+                new Date()
+        );
+
+        try {
+            MitgliedDao.insert(mitglied);
+        } catch (Exception e) {
+            App.showErrorAlert("Error", "insert Mitglied", e.getLocalizedMessage());
+        }
+        loadMitglied();
+    }
+
+    public void updateMitglied(){
+        Ort ort = new Ort(
+                -1,
+                txtPlz.getText(),
+                txtOrt.getText()
+        );
+        Mitglied mitglied = new Mitglied(
+                Long.parseLong(txtMId.getText()),
+                txtVorname.getText(),
+                txtNachname.getText(),
+                Date.from(Instant.parse(txtGeburtsdatum.getText())),
+                txtGeschlecht.getText().charAt(0),
+                txtStrasse.getText(),
+                ort,
+                txtTelefon.getText(),
+                new Date()
+        );
+
+        try {
+            MitgliedDao.update(mitglied);
+        } catch (Exception e) {
+            App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
+        }
+        loadMitglied();
+    }
+
+    @FXML
+    public void deleteMitglied(){
+        Ort ort = new Ort(
+                -1,
+                txtPlz.getText(),
+                txtOrt.getText()
+        );
+
+        Mitglied mitglied = new Mitglied(
+                Long.parseLong(txtMId.getText()),
+                txtVorname.getText(),
+                txtNachname.getText(),
+                Date.from(Instant.parse(txtGeburtsdatum.getText())),
+                txtGeschlecht.getText().charAt(0),
+                txtStrasse.getText(),
+                ort,
+                txtTelefon.getText(),
+                new Date()
+        );
+
+        try {
+            MitgliedDao.delete(mitglied);
+        } catch (Exception e) {
+            App.showErrorAlert("Error", "delete Mitglied", e.getLocalizedMessage());
+        }
+    }
+
+    @FXML
+    public void selectItem() {
+        tblMitglieder.getItems().clear();
+        ArrayList<Mitglied> mitglieder = null;
+
+        try {
+            if(!txtMId.getText().isEmpty()){
+                mitglieder = MitgliedDao.getById(Integer.parseInt(txtMId.getText()));
             }else {
                 mitglieder = MitgliedDao.getAll();
             }
         } catch (SQLException e) {
-            App.showErrorAlert("Error", "load Sportarten", e.getLocalizedMessage());
+            App.showErrorAlert("Error", "select Mitglied", e.getLocalizedMessage());
         }
 
-        for (Mitglied o: mitglieder)
-        {
-            tblMitglieder.getItems().add(o);
-        }
-        lblStatusLeft.setText("Sportarten: " + mitglieder.size());
-
-    }
-
-    public void insertSportart(){
-        Sportart sportart = new Sportart(-1, txtMitglied.getText(), Float.parseFloat(txtBeitrag.getText()));
-
+        Mitglied mitglied;
         try {
-            SportartDao.insert(sportart);
-        } catch (Exception e) {
-            App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
+            long mId = tblMitglieder.getSelectionModel().getSelectedItem().id;
+            mitglied = MitgliedDao.getById(mId).get(0);
+        }catch (Exception e){
+            //If nothing fund, emppty mitglied
+            mitglied = new Mitglied(0, "", "", new Date(), ' ', "", new Ort(0, "", ""), "", new Date());
         }
-        loadSportart();
-    }
-
-    public void updateSportart(){
-        Sportart sportart = new Sportart(Long.parseLong(txtMitgliedId.getText()), txtMitglied.getText(), Float.parseFloat(txtBeitrag.getText()));
-
-        try {
-            SportartDao.update(sportart);
-        } catch (Exception e) {
-            App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
-        }
-        loadSportart();
-    }
-
-    @FXML
-    public void deleteSportart(){
-        Sportart sportart = new Sportart(Long.parseLong(txtSportId.getText()), txtSportart.getText(), Float.parseFloat(txtBeitrag.getText()));
-
-        try {
-            SportartDao.delete(sportart);
-        } catch (Exception e) {
-            App.showErrorAlert("Error", "insert Sportarten", e.getLocalizedMessage());
-        }
-    }
-
-    @FXML
-    public void selectItem(){
-        txtSportId.setText(String.valueOf(tblSportarten.getSelectionModel().selectedItemProperty().getValue().getSportId()));
-        txtSportart.setText(String.valueOf(tblSportarten.getSelectionModel().selectedItemProperty().getValue().getSportart()));
-        txtBeitrag.setText(String.valueOf(tblSportarten.getSelectionModel().selectedItemProperty().getValue().getBeitrag()));
-    }
-
-    @FXML
-    public void saveMitglied(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void loadMitglied(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void deleteMitglied(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void insertMitglied(ActionEvent actionEvent) {
+        txtMId.setText(String.valueOf(mitglied.id));
+        txtVorname.setText(String.valueOf(mitglied.vorname));
+        txtNachname.setText(String.valueOf(mitglied.nachname));
+        txtGeburtsdatum.setText(String.valueOf(mitglied.geburtsdatum));
+        txtGeschlecht.setText(String.valueOf(mitglied.geschlecht));
+        txtStrasse.setText(String.valueOf(mitglied.strasse));
+        txtOrtId.setText(String.valueOf(mitglied.ort.ort_id));
+        txtPlz.setText(String.valueOf(mitglied.ort.plz));
+        txtOrt.setText(String.valueOf(mitglied.ort.ort));
+        txtTelefon.setText(String.valueOf(mitglied.telefonnummer));
+        txtEintrittsdatum.setText(String.valueOf(mitglied.eintrittsdatum));
     }
 }

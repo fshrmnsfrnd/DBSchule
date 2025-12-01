@@ -59,13 +59,13 @@ public class SportartController {
     public Stage getStage() {
         return stage;
     }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
     
     @FXML
-    public void close()
-    {
+    public void close(){
         try
         {
             FXMLLoader loader = new FXMLLoader();
@@ -110,8 +110,7 @@ public class SportartController {
             App.showErrorAlert("Error", "load Sportarten", e.getLocalizedMessage());
         }
 
-        for (Sportart o:sportarten)
-        {
+        for (Sportart o:sportarten){
             tblSportarten.getItems().add(o);
         }
         lblStatusLeft.setText("Sportarten: " + sportarten.size());

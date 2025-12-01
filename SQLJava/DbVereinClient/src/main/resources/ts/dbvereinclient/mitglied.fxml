@@ -50,7 +50,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="rootVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.dbvereinclient.MitgliedController">
+<VBox fx:id="rootVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/24" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ts.dbvereinclient.MitgliedController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -58,7 +58,7 @@
           <items>
             <MenuItem fx:id="mnuNew" mnemonicParsing="false" onAction="#insertMitglied" text="Neu" />
             <MenuItem fx:id="mnuShow" mnemonicParsing="false" onAction="#loadMitglied" text="Anzeigen" />
-            <MenuItem fx:id="mnuSave" mnemonicParsing="false" onAction="#saveMitglied" text="Speichern" />
+            <MenuItem fx:id="mnuSave" mnemonicParsing="false" onAction="#insertMitglied" text="Speichern" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mnuDelete" mnemonicParsing="false" onAction="#deleteMitglied" text="Löschen" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -99,7 +99,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtMId" alignment="CENTER" editable="false" layoutX="130.0" layoutY="68.0" prefHeight="28.0" prefWidth="118.0">
+                  <TextField fx:id="txtMId" alignment="CENTER" layoutX="130.0" layoutY="68.0" prefHeight="28.0" prefWidth="118.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -169,7 +169,7 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txtOrtId" layoutX="130.0" layoutY="291.0" prefHeight="30.0" prefWidth="178.0">
+                  <TextField fx:id="txtOrt" layoutX="130.0" layoutY="291.0" prefHeight="30.0" prefWidth="178.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -180,6 +180,26 @@
                      </font>
                   </TextField>
                   <TextField fx:id="txtEintrittsdatum" layoutX="130.0" layoutY="364.0" prefHeight="30.0" prefWidth="178.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="15.0" layoutY="410.0" prefHeight="23.0" prefWidth="106.0" text="Postleitzahl:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtPlz" layoutX="132.0" layoutY="407.0" prefHeight="30.0" prefWidth="178.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="15.0" layoutY="450.0" prefHeight="23.0" prefWidth="106.0" text="Ort OD:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtOrtId" layoutX="132.0" layoutY="447.0" prefHeight="30.0" prefWidth="178.0">
                      <font>
                         <Font size="14.0" />
                      </font>
