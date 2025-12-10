@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+ "-//Hibernate/Hibernate Configuration DTD 6.0//EN"
+ "https://hibernate.org/dtd/hibernate-configuration-6.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- JDBC Verbindung -->
+        <property name="hibernate.connection.driver_class">
+            com.mysql.cj.jdbc.Driver
+        </property>
+        <property name="hibernate.connection.url">
+            jdbc:mysql://localhost:3306/dbverein_orm?useSSL=false&amp;serverTimezone=UTC
+        </property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">kennwort1</property>
+        <!-- Dialekt -->
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.MySQLDialect</property>
+        <!-- Schema automatisch erzeugen -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!-- SQL Debugging -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <!-- Annotierte Entities -->
+        <mapping class="hibernate.blogic.Ort"/>
+        <mapping class="hibernate.blogic.Mitglied"/>
+        <mapping class="hibernate.blogic.Sportart"/>
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,9 @@
+<configuration>
+    <logger name = "org.hibernate" level = "WARN"/>
+    <logger name = "org.hibernate.SQL" level = "WARN"/>
+    <logger name = "org.hibernate.type.drscriptor.sql.BasicBinder" level = "WARN"/>
+
+    <root level = "ERROR">
+        <apender-ref ref = "CONSOLE"/>
+    </root>
+</configuration>
