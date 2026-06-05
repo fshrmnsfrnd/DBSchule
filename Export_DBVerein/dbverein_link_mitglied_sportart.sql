@@ -18,7 +18,7 @@
 --
 -- Table structure for table `link_mitglied_sportart`
 --
-
+USE dbverein;
 DROP TABLE IF EXISTS `link_mitglied_sportart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
