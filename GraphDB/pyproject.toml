@@ -1,0 +1,9 @@
+[project]
+name = "graphdb"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "py2neo>=2021.2.4",
+]

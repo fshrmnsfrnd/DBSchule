@@ -1,0 +1,15 @@
+ts\dbvereinclient\SportartDao.class
+ts\dbvereinclient\SportartController.class
+ts\dbvereinclient\LoginController.class
+ts\dbvereinclient\AdminCenterController.class
+ts\dbvereinclient\MitgliedController$1.class
+ts\dbvereinclient\MitgliedController.class
+ts\dbvereinclient\MitgliedDao.class
+ts\dbvereinclient\AdminCenterDao.class
+ts\dbvereinclient\Sportart.class
+module-info.class
+ts\dbvereinclient\MainController.class
+ts\dbvereinclient\App.class
+ts\dbvereinclient\DbVerein.class
+ts\dbvereinclient\SportartController$1.class
+ts\dbvereinclient\Mitglied.class

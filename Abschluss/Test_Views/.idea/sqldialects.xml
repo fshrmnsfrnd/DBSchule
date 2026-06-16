@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$USER_HOME$/Downloads/dbVerein_innodb.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/../../Export_DBVerein/dbverein_link_mitglied_sportart.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/../../Export_DBVerein/dbverein_mitglied.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/../../Export_DBVerein/dbverein_ort.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/../../Export_DBVerein/dbverein_sportart.sql" dialect="MySQL" />
+  </component>
+</project>

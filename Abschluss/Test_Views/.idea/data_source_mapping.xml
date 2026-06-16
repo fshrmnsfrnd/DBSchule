@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$USER_HOME$/Downloads/dbVerein_innodb.sql" value="3feea374-f6c8-4ced-899b-504abc6a2817" />
+    <file url="file://$PROJECT_DIR$/../../Export_DBVerein/dbverein_link_mitglied_sportart.sql" value="3feea374-f6c8-4ced-899b-504abc6a2817" />
+    <file url="file://$PROJECT_DIR$/../../Export_DBVerein/dbverein_mitglied.sql" value="3feea374-f6c8-4ced-899b-504abc6a2817" />
+    <file url="file://$PROJECT_DIR$/../../Export_DBVerein/dbverein_ort.sql" value="3feea374-f6c8-4ced-899b-504abc6a2817" />
+    <file url="file://$PROJECT_DIR$/../../Export_DBVerein/dbverein_sportart.sql" value="3feea374-f6c8-4ced-899b-504abc6a2817" />
+  </component>
+</project>
